@@ -7,13 +7,16 @@ export default function MainScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.navbar}>
         <TouchableOpacity onPress={() => {}}>
+
           <Ionicons name="settings-outline" size={24} color="#ffffff" />
         </TouchableOpacity>
       </View>
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Aparta tu lugar en Parkpal</Text>
-          <TouchableOpacity style={styles.button} onPress={() => {}}>
+          <TouchableOpacity style={styles.button} onPress={() => {   navigation.navigate('Find');
+      console.log('Botón presionado');}
+      }>
             <Text style={styles.buttonText}>Aparta tu lugar con Parkpal</Text>
           </TouchableOpacity>
         </View>
