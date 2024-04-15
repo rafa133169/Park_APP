@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { Ionicons } from '@expo/vector-icons'; // Importar el componente Ionicons
 
 export default function SignupScreen({ navigation }) {
   const [nombre, setNombre] = useState('');
@@ -8,6 +9,8 @@ export default function SignupScreen({ navigation }) {
   const [contraseña, setContraseña] = useState('');
   const [confirmarContraseña, setConfirmarContraseña] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // Estado para mostrar/ocultar la confirmación de la contraseña
 
   const handleRegistro = async () => {
     if (!nombre || !email || !contraseña || !confirmarContraseña) {
@@ -41,30 +44,44 @@ export default function SignupScreen({ navigation }) {
       <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
+          placeholderTextColor="gray" // Color gris para el placeholder
           placeholder="Nombre de usuario"
           onChangeText={text => setNombre(text)}
           value={nombre}
         />
         <TextInput
           style={styles.input}
+          placeholderTextColor="gray" // Color gris para el placeholder
           placeholder="Correo electrónico"
           onChangeText={text => setEmail(text)}
           value={email}
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          onChangeText={text => setContraseña(text)}
-          value={contraseña}
-          secureTextEntry={true}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Confirmar contraseña"
-          onChangeText={text => setConfirmarContraseña(text)}
-          value={confirmarContraseña}
-          secureTextEntry={true}
-        />
+        <View style={styles.passwordInputContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            placeholderTextColor="gray" // Color gris para el placeholder
+            placeholder="Contraseña"
+            onChangeText={text => setContraseña(text)}
+            value={contraseña}
+            secureTextEntry={!showPassword} // Utiliza el estado showPassword para mostrar/ocultar la contraseña
+          />
+          <TouchableOpacity style={styles.iconButton} onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="gray" />
+          </TouchableOpacity>
+        </View>
+        <View style={styles.passwordInputContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            placeholderTextColor="gray" // Color gris para el placeholder
+            placeholder="Confirmar contraseña"
+            onChangeText={text => setConfirmarContraseña(text)}
+            value={confirmarContraseña}
+            secureTextEntry={!showConfirmPassword} // Utiliza el estado showConfirmPassword para mostrar/ocultar la confirmación de la contraseña
+          />
+          <TouchableOpacity style={styles.iconButton} onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
+            <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={24} color="gray" />
+          </TouchableOpacity>
+        </View>
       </View>
       <TouchableOpacity style={[styles.button, styles.signupButton]} onPress={handleRegistro}>
         <Text style={styles.buttonText}>Registrarse</Text>
@@ -99,6 +116,23 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10,
     paddingHorizontal: 10,
+  },
+  passwordInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+  },
+  iconButton: {
+    position: 'absolute',
+    right: 10,
   },
   button: {
     width: '80%',

@@ -29,7 +29,7 @@ export default function MainScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.navbar}>
-        <Text style={styles.welcomeText}>Bienvenido a ParkPak, {userName}!</Text>
+        <Text style={styles.welcomeText}>Bienvenido a ParkPal, {userName}!</Text>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Ionicons name="settings-outline" size={24} color="#ffffff" />
         </TouchableOpacity>

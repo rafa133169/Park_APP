@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Ionicons } from '@expo/vector-icons'; // Importar el componente Ionicons
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [contraseña, setContraseña] = useState('');
   const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/ocultar la contraseña
 
   const handleInicioSesion = async () => {
     if (!email || !contraseña) {
@@ -36,17 +38,24 @@ export default function LoginScreen({ navigation }) {
         <TextInput
           style={styles.input}
           placeholder="Correo electrónico"
+          placeholderTextColor="gray" // Color gris para el placeholder
           onChangeText={text => setEmail(text)}
           value={email}
           autoCapitalize="none"
         />
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          onChangeText={text => setContraseña(text)}
-          value={contraseña}
-          secureTextEntry={true}
-        />
+        <View style={styles.passwordInputContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            placeholder="Contraseña"
+            placeholderTextColor="gray" // Color gris para el placeholder
+            onChangeText={text => setContraseña(text)}
+            value={contraseña}
+            secureTextEntry={!showPassword} // Utiliza el estado showPassword para mostrar/ocultar la contraseña
+          />
+          <TouchableOpacity style={styles.iconButton} onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="gray" />
+          </TouchableOpacity>
+        </View>
       </View>
       <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={handleInicioSesion}>
         <Text style={styles.buttonText}>Iniciar Sesión</Text>
@@ -81,6 +90,23 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 10,
     paddingHorizontal: 10,
+  },
+  passwordInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+  },
+  iconButton: {
+    position: 'absolute',
+    right: 10,
   },
   button: {
     width: '80%',
