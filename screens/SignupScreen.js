@@ -1,15 +1,38 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 export default function SignupScreen({ navigation }) {
   const [nombre, setNombre] = useState('');
   const [email, setEmail] = useState('');
   const [contraseña, setContraseña] = useState('');
+  const [confirmarContraseña, setConfirmarContraseña] = useState('');
+  const [error, setError] = useState('');
 
-  const handleRegistro = () => {
-    // Aquí puedes agregar la lógica para registrar al usuario con los datos ingresados
-    // Por ejemplo, enviar los datos a una API o guardarlos localmente
-    console.log('Registrando usuario:', { nombre, email, contraseña });
+  const handleRegistro = async () => {
+    if (!nombre || !email || !contraseña || !confirmarContraseña) {
+      setError('Por favor completa todos los campos');
+      return;
+    }
+
+    if (contraseña !== confirmarContraseña) {
+      setError('Las contraseñas no coinciden');
+      return;
+    }
+
+    try {
+      const auth = getAuth();
+      const userCredential = await createUserWithEmailAndPassword(auth, email, contraseña);
+      await updateProfile(userCredential.user, { displayName: nombre }); // Establecer el nombre de usuario
+      setError('');
+      navigation.navigate('Main');
+    } catch (error) {
+      if (error.code === 'auth/email-already-in-use') {
+        setError('El correo electrónico ya está en uso');
+      } else {
+        setError(error.message);
+      }
+    }
   };
 
   return (
@@ -18,7 +41,7 @@ export default function SignupScreen({ navigation }) {
       <View style={styles.formContainer}>
         <TextInput
           style={styles.input}
-          placeholder="Nombre"
+          placeholder="Nombre de usuario"
           onChangeText={text => setNombre(text)}
           value={nombre}
         />
@@ -35,10 +58,18 @@ export default function SignupScreen({ navigation }) {
           value={contraseña}
           secureTextEntry={true}
         />
+        <TextInput
+          style={styles.input}
+          placeholder="Confirmar contraseña"
+          onChangeText={text => setConfirmarContraseña(text)}
+          value={confirmarContraseña}
+          secureTextEntry={true}
+        />
       </View>
       <TouchableOpacity style={[styles.button, styles.signupButton]} onPress={handleRegistro}>
         <Text style={styles.buttonText}>Registrarse</Text>
       </TouchableOpacity>
+      {error ? <Text style={styles.errorMessage}>{error}</Text> : null}
     </View>
   );
 }
@@ -85,5 +116,9 @@ const styles = StyleSheet.create({
   },
   signupButton: {
     backgroundColor: '#F39913',
+  },
+  errorMessage: {
+    color: 'red',
+    marginTop: 10,
   },
 });

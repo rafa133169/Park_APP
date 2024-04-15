@@ -1,17 +1,34 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
   const [contraseña, setContraseña] = useState('');
+  const [error, setError] = useState('');
 
-  const handleInicioSesion = () => {
-    // Aquí puedes agregar la lógica para iniciar sesión con los datos ingresados
-    // Por ejemplo, enviar los datos a una API o verificarlos localmente
-    console.log('Iniciando sesión:', { email, contraseña });
+  const handleInicioSesion = async () => {
+    if (!email || !contraseña) {
+      setError('Por favor completa todos los campos');
+      return;
+    }
+
+    try {
+      const auth = getAuth();
+      await signInWithEmailAndPassword(auth, email, contraseña);
+      setError('');
+      navigation.navigate('Main');
+    } catch (error) {
+      if (error.code === 'auth/wrong-password') {
+        setError('Contraseña incorrecta. Por favor, inténtalo de nuevo.');
+      } else if (error.code === 'auth/user-not-found') {
+        setError('No se encontró ningún usuario con este correo electrónico. Por favor, regístrate.');
+      } else {
+        setError(error.message);
+      }
+    }
   };
 
-  
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Iniciar Sesión</Text>
@@ -21,6 +38,7 @@ export default function LoginScreen({ navigation }) {
           placeholder="Correo electrónico"
           onChangeText={text => setEmail(text)}
           value={email}
+          autoCapitalize="none"
         />
         <TextInput
           style={styles.input}
@@ -30,9 +48,10 @@ export default function LoginScreen({ navigation }) {
           secureTextEntry={true}
         />
       </View>
-      <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={() => navigation.navigate('Main')}>
+      <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={handleInicioSesion}>
         <Text style={styles.buttonText}>Iniciar Sesión</Text>
       </TouchableOpacity>
+      {error ? <Text style={styles.errorMessage}>{error}</Text> : null}
     </View>
   );
 }
@@ -79,5 +98,9 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: '#F39913',
+  },
+  errorMessage: {
+    color: 'red',
+    marginTop: 10,
   },
 });
