@@ -19,7 +19,8 @@
     "react-native": "0.73.6",
     "react-native-elements": "^3.4.3",
     "react-native-qrcode-svg": "^6.3.0",
-    "react-native-web": "~0.19.6"
+    "react-native-web": "~0.19.6",
+    "react-native-websocket": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
