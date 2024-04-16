@@ -9,6 +9,8 @@ import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import MainScreen from './screens/MainScreen';
 import FindScreen from './screens/FindScreen';
+import ParkingStatusScreen from './screens/ParkingStatusScreen';
+import AccountScreen from './screens/AccountScreen';
 
 const Stack = createStackNavigator();
 
@@ -21,6 +23,8 @@ export default function App() {
         <Stack.Screen name="Signup" component={SignupScreen} options={{ title: 'Crear Cuenta' }} /> 
         <Stack.Screen name="Main" component={MainScreen} options={{title: 'Bienvenido'}} />
         <Stack.Screen name="Find" component={FindScreen} options={{title: 'Encuentra un estacionamiento'}} />
+        <Stack.Screen name="ParkingStatus" component={ParkingStatusScreen} options={{ title: 'Estado del Parking' }} /> 
+        <Stack.Screen name="Account" component={AccountScreen} options={{ title: 'Cuenta de usuario' }} /> 
       </Stack.Navigator>
     </NavigationContainer>
   );

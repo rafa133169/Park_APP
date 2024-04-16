@@ -1,10 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, Animated } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { getAuth, signOut } from 'firebase/auth';
 
 const Navbar = ({ userName, navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [fadeAnim] = useState(new Animated.Value(0)); // Estado para controlar la animación de desvanecimiento
+
+  useEffect(() => {
+    if (modalVisible) {
+      // Anima la opacidad al abrir el modal
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      // Anima la opacidad al cerrar el modal
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [modalVisible, fadeAnim]);
 
   const handleLogout = async () => {
     try {
@@ -24,12 +43,12 @@ const Navbar = ({ userName, navigation }) => {
       </TouchableOpacity>
       {/* Modal de opciones */}
       <Modal
-        animationType="slide"
+        animationType="fade" // Cambia la animación a desvanecimiento
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.centeredView}>
+        <Animated.View style={[styles.centeredView, { opacity: fadeAnim }]}>
           <View style={styles.modalView}>
             <TouchableOpacity onPress={handleLogout} style={styles.modalItem}>
               <Ionicons name="log-out-outline" size={24} color="black" />
@@ -40,7 +59,7 @@ const Navbar = ({ userName, navigation }) => {
               <Text style={styles.modalText}>Cerrar</Text>
             </TouchableOpacity>
           </View>
-        </View>
+        </Animated.View>
       </Modal>
     </View>
   );
@@ -63,10 +82,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Fondo oscuro transparente
   },
   modalView: {
-    margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
