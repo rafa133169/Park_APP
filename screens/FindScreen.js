@@ -1,76 +1,82 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image, Modal } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { getAuth, signOut } from 'firebase/auth';
+import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Dimensions, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; 
 import { Card } from 'react-native-elements';
-import Footer from './Footer';
-import Navbar from './navbar'; // Importa el componente Navbar
 
 const FindScreen = ({ navigation }) => {
-  const [userName, setUserName] = useState('');
-
-  useEffect(() => {
-    // Obtener el nombre de usuario al cargar la pantalla
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-      setUserName(user.displayName);
-    }
-  }, []);
-
-  const handleLogout = async () => {
-    try {
-      const auth = getAuth();
-      await signOut(auth);
-      navigation.navigate('Home');
-    } catch (error) {
-      console.error('Error al cerrar sesión:', error.message);
-    }
-  };
+  const windowWidth = Dimensions.get('window').width;
 
   return (
     <View style={styles.container}>
-      {/* Usa el componente Navbar */}
-      <Navbar userName={userName} navigation={navigation} />
-
+      <View style={styles.navbar}>
+        <TouchableOpacity onPress={() => {}}>
+          <Ionicons name="settings-outline" size={24} color="#ffffff" />
+        </TouchableOpacity>
+      </View>
       <View style={styles.content}>
         <View style={styles.header}>
           <Text style={styles.title}>Encuentra tu</Text>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => {
-              navigation.navigate('Find');
-              console.log('Botón presionado');
-            }}
-          >
+          <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('Find'); console.log('Botón presionado'); }}>
             <Text style={styles.buttonText}>Lugar de estacionamiento</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.cardContainer}>
-          <Card containerStyle={styles.card} titleStyle={styles.cardTitle}>
-            <Card.Title>Carro</Card.Title>
-            <Card.Divider />
-            <Image source={require('../img/carrito.png')} style={styles.image} />
-            <Text style={styles.cardText}></Text>
-          </Card>
-          <Card containerStyle={styles.card} titleStyle={styles.cardTitle}>
-            <Card.Title>Moto</Card.Title>
-            <Card.Divider />
-            <Image source={require('../img/moto.png')} style={styles.image} />
-          </Card>
-          <Card containerStyle={styles.card} titleStyle={styles.cardTitle}>
-            <Card.Title>Camioneta</Card.Title>
-            <Card.Divider />
-            <Image source={require('../img/camioneta.png')} style={styles.image} />
-          </Card>
+          <TouchableOpacity onPress={() => navigation.navigate('ParkingDetail', { parkingType: 'Carro' })}>
+            <Card
+              containerStyle={styles.card}
+              titleStyle={styles.cardTitle}
+            >
+              <Card.Title>Carro</Card.Title>
+              <Card.Divider/>
+              <Image
+                source={require('../img/carrito.png')}
+                style={styles.image}
+              />
+            </Card>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('ParkingDetail', { parkingType: 'Moto' })}>
+            <Card
+              containerStyle={styles.card}
+              titleStyle={styles.cardTitle}
+            >
+              <Card.Title>Moto</Card.Title>
+              <Card.Divider/>
+              <Image
+                source={require('../img/moto.png')}
+                style={styles.image}
+              />
+            </Card>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('ParkingDetail', { parkingType: 'Camioneta' })}>
+            <Card
+              containerStyle={styles.card}
+              titleStyle={styles.cardTitle}
+            >
+              <Card.Title>Camioneta</Card.Title>
+              <Card.Divider/>
+              <Image
+                source={require('../img/camioneta.png')}
+                style={styles.image}
+              />
+            </Card>
+          </TouchableOpacity>
         </View>
-        <Image source={require('../img/carro3.png')} style={styles.imageBigcar} />
+        <Image
+          source={require('../img/carro3.png')}
+          style={styles.imageBigcar}
+        />
       </View>
-     
-     <Footer navigation={navigation}/>
-
-      {/* Modal de opciones */}
-   
+      <View style={styles.footer}>
+        <TouchableOpacity onPress={() => {}}>
+          <Ionicons name="car-outline" size={24} color="#F39913" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}}>
+          <Ionicons name="calendar-outline" size={24} color="#F39913" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => {}}>
+          <Ionicons name="person-outline" size={24} color="#F39913" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -80,10 +86,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#ffffff',
   },
-  welcomeText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
+  image: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+    alignSelf: 'center',
+  },
+  navbar: {
+    backgroundColor: '#F39913',
+    alignItems: 'flex-end',
+    padding: 10,
   },
   content: {
     flex: 1,
@@ -111,7 +123,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontWeight: 'bold',
   },
- 
+  footer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5',
+    paddingVertical: 20,
+  },
   cardContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -128,31 +146,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 5,
   },
-  image: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
-    alignContent: 'center',
-    marginLeft: 50,
-    flex: 1,
-  },
   imageBigcar: {
-    textAlign: 'center',
-    width: 200,
-    height: 200,
-    marginLeft: 50,
-  },
-  cardText: {
-    color: '#ffff',
-    fontSize: 14,
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
+    width: '100%',
+    height: '70%',
+    resizeMode: 'contain',
   },
 });
 

@@ -11,6 +11,8 @@ import MainScreen from './screens/MainScreen';
 import FindScreen from './screens/FindScreen';
 import ParkingStatusScreen from './screens/ParkingStatusScreen';
 import AccountScreen from './screens/AccountScreen';
+import ParkingDetailScreen from './screens/ParkingDetailScreen';
+
 
 const Stack = createStackNavigator();
 
@@ -43,6 +45,8 @@ export default function App() {
             <Stack.Screen name="Find" component={FindScreen} options={{title: 'Encuentra un estacionamiento'}} />
             <Stack.Screen name="ParkingStatus" component={ParkingStatusScreen} options={{ title: 'Estado del Parking' }} /> 
             <Stack.Screen name="Account" component={AccountScreen} options={{ title: 'Cuenta de usuario' }} /> 
+            <Stack.Screen name="ParkingDetail" component={ParkingDetailScreen} options={{ title: 'Detalles del estacionamiento' }} />
+
           </>
         ) : (
           <>
