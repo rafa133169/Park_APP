@@ -9,7 +9,9 @@ const AccountScreen = ({ navigation }) => {
   const [userEmail, setUserEmail] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
   const [fadeAnim] = useState(new Animated.Value(0)); // Estado para controlar la animación de desvanecimiento
-
+  // En el estado del componente, agrega un estado para controlar la visibilidad de la contraseña
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
   // Estado para el formulario de cambio de contraseña
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -104,24 +106,37 @@ const AccountScreen = ({ navigation }) => {
               <TextInput
                 style={styles.input}
                 placeholder="Contraseña actual"
+                placeholderTextColor="gray" // Color gris para el placeholder
                 secureTextEntry={true}
                 value={currentPassword}
                 onChangeText={(text) => setCurrentPassword(text)}
               />
-              <TextInput
-                style={styles.input}
-                placeholder="Nueva Contraseña"
-                secureTextEntry={true}
-                value={newPassword}
-                onChangeText={(text) => setNewPassword(text)}
-              />
-              <TextInput
-                style={styles.input}
-                placeholder="Confirmar Nueva Contraseña"
-                secureTextEntry={true}
-                value={confirmNewPassword}
-                onChangeText={(text) => setConfirmNewPassword(text)}
-              />
+              <View style={styles.passwordInputContainer}>
+                <TextInput
+                  style={styles.passwordInput}
+                  placeholder="Nueva Contraseña"
+                  placeholderTextColor="gray" // Color gris para el placeholder
+                  secureTextEntry={!showNewPassword}
+                  value={newPassword}
+                  onChangeText={(text) => setNewPassword(text)}
+                />
+                <TouchableOpacity style={styles.iconButton} onPress={() => setShowNewPassword(!showNewPassword)}>
+                  <Ionicons name={showNewPassword ? 'eye-off' : 'eye'} size={24} color="gray" />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.passwordInputContainer}>
+                <TextInput
+                  style={styles.passwordInput}
+                  placeholder="Confirmar Nueva Contraseña"
+                  placeholderTextColor="gray" // Color gris para el placeholder
+                  secureTextEntry={!showConfirmNewPassword}
+                  value={confirmNewPassword}
+                  onChangeText={(text) => setConfirmNewPassword(text)}
+                />
+                <TouchableOpacity style={styles.iconButton} onPress={() => setShowConfirmNewPassword(!showConfirmNewPassword)}>
+                  <Ionicons name={showConfirmNewPassword ? 'eye-off' : 'eye'} size={24} color="gray" />
+                </TouchableOpacity>
+              </View>
               {passwordError ? <Text style={styles.errorMessage}>{passwordError}</Text> : null}
               <TouchableOpacity onPress={handleChangePassword} style={styles.modalButton}>
                 <Text style={styles.buttonText}>Cambiar Contraseña</Text>
@@ -204,6 +219,24 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     marginBottom: 10,
+  },
+  passwordInputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginBottom: 10,
+  },
+  passwordInput: {
+    flex: 1,
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+  },
+  iconButton: {
+    position: 'absolute',
+    right: 10,
   },
   errorMessage: {
     color: 'red',
