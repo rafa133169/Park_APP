@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: 'Arial',
     fontWeight: 'bold',
-    color: '#F39913',
+    color: '#EFBD28',
   },
   subTitle: {
     fontSize: 16,
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#EAEAEA',
   },
   loginButtonText: {
-    color: '#FFFFFF',
+    color: '#000000',
   },
   signupButtonText: {
     color: '#898989',
