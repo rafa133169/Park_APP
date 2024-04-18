@@ -39,7 +39,7 @@ const Navbar = ({ userName, navigation }) => {
     <View style={styles.navbar}>
       <Text style={styles.welcomeText}>Bienvenido a ParkPal, {userName}!</Text>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Ionicons name="settings-outline" size={24} color="#ffffff" />
+        <Ionicons name="settings-outline" size={28} color="#3e3e3e" />
       </TouchableOpacity>
       {/* Modal de opciones */}
       <Modal
@@ -67,14 +67,14 @@ const Navbar = ({ userName, navigation }) => {
 
 const styles = StyleSheet.create({
   navbar: {
-    backgroundColor: '#F39913',
+    backgroundColor: '#f4cd28',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 10,
   },
   welcomeText: {
-    color: '#ffffff',
+    color: '#000000',
     fontSize: 16,
     fontWeight: 'bold',
   },

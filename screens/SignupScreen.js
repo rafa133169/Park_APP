@@ -144,12 +144,12 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 16,
-    color: '#ffffff',
+    color: '#000000',
     fontFamily: 'Arial',
     fontWeight: 'bold',
   },
   signupButton: {
-    backgroundColor: '#F39913',
+    backgroundColor: '#EFBD28',
   },
   errorMessage: {
     color: 'red',

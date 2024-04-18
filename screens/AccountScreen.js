@@ -89,8 +89,8 @@ const AccountScreen = ({ navigation }) => {
         <Text style={styles.title}>Cuenta de Usuario</Text>
         <Text style={styles.userInfo}>Nombre de Usuario: {userName}</Text>
         <Text style={styles.userInfo}>Correo Electrónico: {userEmail}</Text>
-        <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.changePasswordButton}>
-          <Text style={styles.changePasswordButtonText}>Cambiar Contraseña</Text>
+        <TouchableOpacity onPress={() => setModalVisible(true)} style={[styles.changePasswordButton, styles.button]}>
+          <Text style={[styles.changePasswordButtonText, styles.buttonText]}>Cambiar Contraseña</Text>
         </TouchableOpacity>
 
         {/* Modal de cambio de contraseña */}
@@ -176,13 +176,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   changePasswordButton: {
-    backgroundColor: '#F39913',
+    backgroundColor: '#f4cd28',
     padding: 10,
     borderRadius: 10,
     marginBottom: 20,
   },
   changePasswordButtonText: {
-    color: '#ffffff',
+    color: '#000000',
     fontSize: 16,
     fontWeight: 'bold',
   },
@@ -243,23 +243,35 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   modalButton: {
-    backgroundColor: '#F39913',
+    backgroundColor: '#f4cd28',
     padding: 10,
     borderRadius: 10,
     width: '100%',
     alignItems: 'center',
     marginTop: 10,
   },
+  button: {
+    width: '25%',
+    padding: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },  
   buttonText: {
-    color: '#ffffff',
+    color: '#000000',
     fontSize: 16,
     fontWeight: 'bold',
   },
   logoutButton: {
     marginTop: 20,
+    borderRadius: 10,
+    marginBottom: 20,
+    padding: 10,
+    backgroundColor: '#EAEAEA', // Cambia el color de fondo del botón de logout
   },
   logoutButtonText: {
-    color: '#F39913',
+    color: '#898989', // Cambia el color del texto del botón de logout
   },
 });
 

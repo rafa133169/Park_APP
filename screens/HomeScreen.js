@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   loginButton: {
-    backgroundColor: '#F39913',
+    backgroundColor: '#f4cd28',
   },
   signupButton: {
     backgroundColor: '#EAEAEA',
@@ -88,3 +88,4 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
   },
 });
+

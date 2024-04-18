@@ -66,14 +66,14 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   button: {
-    backgroundColor: '#F39913',
+    backgroundColor: '#f4cd28',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
   },
   buttonText: {
     fontSize: 16,
-    color: '#ffffff',
+    color: '#000000',
     fontFamily: 'Arial',
     fontWeight: 'bold',
   },

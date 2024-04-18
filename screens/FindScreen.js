@@ -104,14 +104,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    backgroundColor: '#F39913',
+    backgroundColor: '#EFBD28',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 10,
   },
   buttonText: {
     fontSize: 14,
-    color: '#ffffff',
+    color: '#000000',
     fontFamily: 'Arial',
     fontWeight: 'bold',
   },
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   card: {
     width: (Dimensions.get('window').width - 60) / 3,
     borderRadius: 10,
-    backgroundColor: '#F39913',
+    backgroundColor: '#f4cd28',
   },
   cardTitle: {
     color: '#000',

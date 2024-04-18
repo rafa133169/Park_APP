@@ -50,7 +50,7 @@ const PaymentGatewayScreen = () => {
         <View style={styles.totalContainer}>
           <Text style={[styles.totalLabel, { color: 'green', marginLeft: 20 }]}>Total a pagar:</Text>
           <Card style={[styles.totalButton, { backgroundColor: '#FFBA82' }]}>
-            <Text style={[styles.totalText, { color: 'white' }]}>$150.00</Text>
+            <Text style={[styles.totalText, { color: 'black' }]}>$150.00</Text>
           </Card>
         </View>
         <View style={styles.imageContainer}>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   topContainer: {
-    backgroundColor: '#656CEE',
+    backgroundColor: '#EFBD28',
     justifyContent: 'center',
     alignItems: 'center',
     borderBottomLeftRadius: 20,
@@ -130,8 +130,9 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
   },
   welcomeText: {
-    color: 'white',
+    color: 'black',
     fontSize: 24,
+    fontWeight: 'bold',
   },
   paymentText: {
     marginVertical: 10,
@@ -155,7 +156,7 @@ const styles = StyleSheet.create({
   totalText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: 'black',
   },
   imageContainer: {
     alignItems: 'center',
@@ -184,15 +185,15 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 40,
-    backgroundColor: '#656CEE',
+    backgroundColor: '#EFBD28',
     paddingVertical: 12,
     borderRadius: 5,
     alignItems: 'center',
-    width: '90%',
+    width: '70%',
     alignSelf: 'center',
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     fontSize: 16,
     fontWeight: 'bold',
   },
