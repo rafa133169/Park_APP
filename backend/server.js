@@ -25,6 +25,14 @@ connection.connect(err => {
 // Middleware para analizar el cuerpo de las solicitudes entrantes
 app.use(bodyParser.json());
 
+// Middleware para permitir CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Permite solicitudes desde cualquier origen
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE'); // Permite los métodos HTTP especificados
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization'); // Permite los encabezados especificados
+  next();
+});
+
 // Define el endpoint para obtener los datos de los sensores
 app.get('/api/datosensores', (req, res) => {
   // Realiza una consulta a la base de datos para obtener los datos de los sensores

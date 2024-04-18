@@ -12,7 +12,8 @@ import FindScreen from './screens/FindScreen';
 import ParkingStatusScreen from './screens/ParkingStatusScreen';
 import AccountScreen from './screens/AccountScreen';
 import ParkingDetailScreen from './screens/ParkingDetailScreen';
-
+import Resumen from './screens/Resumen';
+import PaymentGatewayScreen from './screens/PaymentGatewayScreen';
 
 
 const Stack = createStackNavigator();
@@ -47,7 +48,8 @@ export default function App() {
             <Stack.Screen name="ParkingStatus" component={ParkingStatusScreen} options={{ title: 'Estado del Parking' }} /> 
             <Stack.Screen name="Account" component={AccountScreen} options={{ title: 'Cuenta de usuario' }} /> 
             <Stack.Screen name="ParkingDetail" component={ParkingDetailScreen} options={{ title: 'Detalles del estacionamiento' }} />
-            <Stack.Screen name="Sensor" component={SensorScreen} options={{ title: 'Sensor' }} />
+          <Stack.Screen name="PaymentGateway" component={PaymentGatewayScreen} options={{ title: 'Método de pago' }} />
+            <Stack.Screen name="Resumen" component={Resumen} options={{ title: 'Resumen de Reservación' }} />
 
           </>
         ) : (
