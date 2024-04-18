@@ -35,7 +35,7 @@ const FindScreen = ({ navigation }) => {
       <View style={styles.content}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.button} onPress={() => { navigation.navigate('Find'); console.log('Botón presionado'); }}>
-            <Text style={styles.buttonText}>Buscar lugares cerca</Text>
+            <Text style={styles.buttonText}>Buscar lugares cerca </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.cardContainer}>
