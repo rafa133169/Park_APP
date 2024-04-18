@@ -29,11 +29,21 @@ db.connect((err) => {
 
 // Manejar mensajes MQTT recibidos y emitirlos a los clientes a través de WebSocket
 mqttClient.on('message', (topic, message) => {
-  io.emit('mqtt_message', { topic, message: message.toString() });
-});
+  console.log(`Mensaje recibido en el tema ${topic}: ${message.toString()}`); // Imprimir mensaje en consola
+  
+  // Insertar los datos en la base de datos MySQL
+  const insertQuery = 'INSERT INTO nombre_de_la_tabla (columna_del_dato) VALUES (?)';
+  db.query(insertQuery, [message.toString()], (err, result) => {
+    if (err) {
+      console.error('Error al insertar datos en la base de datos:', err);
+      return;
+    }
+    console.log('Datos insertados en la base de datos');
+  });
 
-// Manejar conexiones WebSocket
-io.on('connection', (socket) => {
+  // Emitir los datos a los clientes a través de WebSocket
+  io.emit('mqtt_message', { topic, message: message.toString() });
+
   console.log('Cliente conectado');
 
   socket.on('disconnect', () => {
@@ -46,7 +56,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Ruta para obtener datos desde la base de datos
 app.get('/api/data', (req, res) => {
-  const query = 'SELECT * FROM infrarrojos'; // Query para seleccionar todos los datos de la tabla 'arduino'
+  const query = 'SELECT id_infrarrojo, estado_sensor FROM infrarrojos'; // Query para seleccionar todos los datos de la tabla 'arduino'
 
   db.query(query, (err, rows) => {
     if (err) {
