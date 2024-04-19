@@ -30,7 +30,7 @@ const PaymentGatewayScreen = () => {
 
     // Aquí iría la lógica para realizar el pago
 
-    Alert.alert('Pago realizado exitosamente');
+    Alert.alert('Éxito', 'Pago realizado exitosamente');
     // Aquí podrías navegar a la pantalla de pago exitoso si es necesario
     navigation.navigate('Exitoso');
   };
