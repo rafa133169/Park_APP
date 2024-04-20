@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+<body>
+    <h1>Received Data:</h1>
+    <ul id="dataList"></ul>
+
+    <script>
+        const dataList = document.getElementById('dataList');
+
+        const socket = new WebSocket('ws://localhost:8765');
+        let counter = 1;
+
+        socket.addEventListener('message', function(event) {
+            const newData = JSON.parse(event.data);
+            if (counter <= 10) {
+                const listItem = document.createElement('li');
+                listItem.textContent = JSON.stringify(newData);
+                dataList.appendChild(listItem);
+                counter++;
+            }
+        });
+    </script>
+</body>
+</html>
